@@ -1,6 +1,7 @@
 package com.chad.api.service;
 
 import com.chad.api.dao.pojo.SysUser;
+import com.chad.api.helper.Result;
 
 public interface SysUserService {
 
@@ -20,4 +21,13 @@ public interface SysUserService {
 	 * @return {@link SysUser}
 	 */
 	SysUser findUser(String account, String pwd);
+
+
+	/**
+	 * 得到用户信息
+	 *
+	 * @param token 令牌
+	 * @return {@link Result}
+	 */
+	Result getUserInfoByToken(String token);
 }
