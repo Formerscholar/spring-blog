@@ -1,5 +1,6 @@
 package com.chad.api.service;
 
+import com.chad.api.dao.pojo.SysUser;
 import com.chad.api.helper.Result;
 import com.chad.api.vo.params.LoginParam;
 
@@ -27,4 +28,12 @@ public interface LoginService {
 	 * @return {@link Result}
 	 */
 	Result register(LoginParam loginParam);
+
+	/**
+	 * 检查令牌
+	 *
+	 * @param token 令牌
+	 * @return {@link SysUser}
+	 */
+	SysUser checkToken(String token);
 }
