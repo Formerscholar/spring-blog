@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2021/06/24
  */
 @Service
+@Transactional
 public class LoginServiceImpl implements LoginService {
 	private static final String SLAT = "mszlu!@#";
 
@@ -55,5 +57,40 @@ public class LoginServiceImpl implements LoginService {
 	public Result logout(String token) {
 		redisTemplate.delete("TOKEN_" + token);
 		return Result.success(null);
+	}
+
+	@Override
+	public Result register(LoginParam loginParam) {
+
+		String account = loginParam.getAccount();
+		String password = loginParam.getPassword();
+		String nickname = loginParam.getNickname();
+		if (StringUtils.isBlank(account)
+			|| StringUtils.isBlank(password)
+			|| StringUtils.isBlank(nickname)
+		) {
+			return Result.fail(ErrorCode.PARAMS_ERROR.getCode(), ErrorCode.PARAMS_ERROR.getMsg());
+		}
+		SysUser sysUser = this.sysUserService.findUserByAccount(account);
+		if (sysUser != null) {
+			return Result.fail(ErrorCode.ACCOUNT_EXIST.getCode(), ErrorCode.ACCOUNT_EXIST.getMsg());
+		}
+		sysUser = new SysUser();
+		sysUser.setNickname(nickname);
+		sysUser.setAccount(account);
+		sysUser.setPassword(DigestUtils.md5Hex(password + SLAT));
+		sysUser.setCreateDate(System.currentTimeMillis());
+		sysUser.setLastLogin(System.currentTimeMillis());
+		sysUser.setAvatar("/static/img/logo.b3a48c0.png");
+		sysUser.setAdmin(1); //1 为true
+		sysUser.setDeleted(0); // 0 为false
+		sysUser.setSalt("");
+		sysUser.setStatus("");
+		sysUser.setEmail("");
+		this.sysUserService.save(sysUser);
+		//token
+		String token = JWTUtils.createToken(sysUser.getId());
+		redisTemplate.opsForValue().set("TOKEN_" + token, JSON.toJSONString(sysUser), 1, TimeUnit.DAYS);
+		return Result.success(token);
 	}
 }
