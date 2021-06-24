@@ -6,7 +6,7 @@ import com.chad.api.helper.Result;
 import com.chad.api.service.LoginService;
 import com.chad.api.service.SysUserService;
 import com.chad.api.utils.JWTUtils;
-import com.chad.api.vo.ErrorCode;
+import com.chad.api.enums.ErrorCode;
 import com.chad.api.vo.params.LoginParam;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -61,7 +61,6 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public Result register(LoginParam loginParam) {
-
 		String account = loginParam.getAccount();
 		String password = loginParam.getPassword();
 		String nickname = loginParam.getNickname();

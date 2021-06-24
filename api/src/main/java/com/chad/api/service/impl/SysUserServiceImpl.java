@@ -7,7 +7,7 @@ import com.chad.api.dao.pojo.SysUser;
 import com.chad.api.helper.Result;
 import com.chad.api.service.SysUserService;
 import com.chad.api.utils.JWTUtils;
-import com.chad.api.vo.ErrorCode;
+import com.chad.api.enums.ErrorCode;
 import com.chad.api.vo.LoginUserVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

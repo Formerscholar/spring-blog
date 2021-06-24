@@ -1,4 +1,4 @@
-package com.chad.api.vo;
+package com.chad.api.enums;
 
 public enum ErrorCode {
 
