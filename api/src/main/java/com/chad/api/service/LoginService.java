@@ -11,4 +11,12 @@ public interface LoginService {
 	 * @return {@link Result}
 	 */
 	Result login(LoginParam loginParam);
+
+	/**
+	 * 注销
+	 *
+	 * @param token 令牌
+	 * @return {@link Result}
+	 */
+	Result logout(String token);
 }

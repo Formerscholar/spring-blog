@@ -3,6 +3,12 @@ package com.chad.api.service;
 import com.chad.api.dao.pojo.SysUser;
 import com.chad.api.helper.Result;
 
+/**
+ * 系统用户服务
+ *
+ * @author Chad
+ * @date 2021/06/24
+ */
 public interface SysUserService {
 
 	/**
