@@ -16,6 +16,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 登录服务impl
+ *
+ * @author Chad
+ * @date 2021/06/24
+ */
 @Service
 public class LoginServiceImpl implements LoginService {
 	private static final String SLAT = "mszlu!@#";
