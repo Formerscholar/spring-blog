@@ -41,4 +41,11 @@ public interface ArticleService {
    */
   List<Archives> listArchives();
 
+  /**
+   * 找到文章的id
+   *
+   * @param id id
+   * @return {@link ArticleVo}
+   */
+  ArticleVo findArticleById(Long id);
 }

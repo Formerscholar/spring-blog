@@ -7,10 +7,7 @@ import com.chad.api.vo.ArticleVo;
 import com.chad.api.vo.PageVo;
 import com.chad.api.vo.params.PageParams;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,5 +43,11 @@ public class ArticleController {
 	public Result listArchives() {
 		List<Archives> articleVos = articleService.listArchives();
 		return Result.success(articleVos);
+	}
+
+	@PostMapping("detaid/{id}")
+	public Result detail(@PathVariable("id") Long id) {
+		ArticleVo articleVo = articleService.findArticleById(id);
+		return Result.success(articleVo);
 	}
 }

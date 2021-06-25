@@ -13,14 +13,8 @@ public class UserThreadLocal {
 	private UserThreadLocal() {
 	}
 
-	/** 当地的 */
 	private static final ThreadLocal<SysUser> LOCAL = new ThreadLocal<>();
 
-	/**
-	 * 把
-	 *
-	 * @param sysUser 系统用户
-	 */
 	public static void put(SysUser sysUser) {
 		LOCAL.set(sysUser);
 	}
