@@ -5,6 +5,7 @@ import com.chad.api.dao.pojo.SysUser;
 import com.chad.api.enums.ErrorCode;
 import com.chad.api.helper.Result;
 import com.chad.api.service.LoginService;
+import com.chad.api.utils.UserThreadLocal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -50,6 +51,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return false;
 		}
 
+		UserThreadLocal.put(sysUser);
 		return true;
+	}
+
+
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+		UserThreadLocal.remove();
 	}
 }

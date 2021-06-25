@@ -2,7 +2,7 @@
   "name" : "MsArticleBody",
   "preName" : "",
   "comment" : null,
-  "templateGroupName" : "MybatisPlus",
+  "templateGroupName" : "Default",
   "fullColumn" : [ {
     "name" : "id",
     "comment" : null,

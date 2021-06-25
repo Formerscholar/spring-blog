@@ -4,6 +4,12 @@ import com.chad.api.dao.pojo.SysUser;
 import com.chad.api.helper.Result;
 import com.chad.api.vo.params.LoginParam;
 
+/**
+ * 登录服务
+ *
+ * @author Chad
+ * @date 2021/06/24
+ */
 public interface LoginService {
 	/**
 	 * 登录
