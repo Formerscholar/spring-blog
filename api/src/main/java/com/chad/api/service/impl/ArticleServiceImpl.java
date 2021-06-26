@@ -7,11 +7,7 @@ import com.chad.api.dao.mapper.ArticleBodyMapper;
 import com.chad.api.dao.mapper.ArticleMapper;
 import com.chad.api.dao.pojo.Article;
 import com.chad.api.dao.pojo.ArticleBody;
-import com.chad.api.dao.pojo.SysUser;
-import com.chad.api.service.ArticleService;
-import com.chad.api.service.CategoryService;
-import com.chad.api.service.SysUserService;
-import com.chad.api.service.TagService;
+import com.chad.api.service.*;
 import com.chad.api.vo.ArticleBodyVo;
 import com.chad.api.vo.ArticleVo;
 import com.chad.api.vo.CategoryVo;
@@ -42,6 +38,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
 	private ArticleBodyMapper articleBodyMapper;
+
+	@Autowired
+	private ThreadService threadService;
 
 	@Override
 	public PageVo listArticle(PageParams pageParams) {
@@ -89,6 +88,8 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public ArticleVo findArticleById(Long id) {
 		Article article = articleMapper.selectById(id);
+		//线程更新阅读量
+		threadService.updateViewCount(articleMapper, article);
 		return copy(article, true, true, true, true);
 	}
 
@@ -148,15 +149,10 @@ public class ArticleServiceImpl implements ArticleService {
 			articleVo.setBody(articleBody);
 		}
 		if (isCategory) {
-			CategoryVo categoryVo = findCategory(article.getCategoryId());
+			CategoryVo categoryVo = categoryService.findCategoryById(article.getCategoryId());
 			articleVo.setCategory(categoryVo);
 		}
 		return articleVo;
-	}
-
-
-	private CategoryVo findCategory(Long categoryId) {
-		return categoryService.findCategoryById(categoryId);
 	}
 
 
