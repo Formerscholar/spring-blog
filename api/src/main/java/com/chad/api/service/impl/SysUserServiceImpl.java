@@ -4,11 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.chad.api.dao.mapper.SysUserMapper;
 import com.chad.api.dao.pojo.SysUser;
+import com.chad.api.enums.ErrorCode;
 import com.chad.api.helper.Result;
 import com.chad.api.service.SysUserService;
 import com.chad.api.utils.JWTUtils;
-import com.chad.api.enums.ErrorCode;
 import com.chad.api.vo.LoginUserVo;
+import com.chad.api.vo.UserVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -26,13 +27,19 @@ public class SysUserServiceImpl implements SysUserService {
 	private RedisTemplate<String, String> redisTemplate;
 
 	@Override
-	public SysUser getUserById(long id) {
+	public UserVo getUserById(long id) {
 		SysUser sysUser = sysUserMapper.selectById(id);
-		if (sysUser == null) {
+		if (sysUser == null){
 			sysUser = new SysUser();
-			sysUser.setNickname("chad");
+			sysUser.setId(1L);
+			sysUser.setAvatar("/static/img/logo.b3a48c0.png");
+			sysUser.setNickname("码神之路");
 		}
-		return sysUser;
+		UserVo userVo = new UserVo();
+		userVo.setAvatar(sysUser.getAvatar());
+		userVo.setNickname(sysUser.getNickname());
+		userVo.setId(sysUser.getId());
+		return userVo;
 	}
 
 	@Override

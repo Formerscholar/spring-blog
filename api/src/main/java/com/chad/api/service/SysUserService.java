@@ -2,6 +2,7 @@ package com.chad.api.service;
 
 import com.chad.api.dao.pojo.SysUser;
 import com.chad.api.helper.Result;
+import com.chad.api.vo.UserVo;
 
 /**
  * 系统用户服务
@@ -15,9 +16,9 @@ public interface SysUserService {
 	 * 得到用户的id
 	 *
 	 * @param id id
-	 * @return {@link SysUser}
+	 * @return {@link UserVo}
 	 */
-	SysUser getUserById(long id);
+	UserVo getUserById(long id);
 
 	/**
 	 * 找到用户
